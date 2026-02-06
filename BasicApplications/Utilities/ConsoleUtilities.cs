@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextToImageConverter
+namespace BasicApplications.Utilities
 {
-    internal class CommonInterface
+    internal class ConsoleUtilities
     {
-        public static int OptionsGenerator(string[] options, string exitOption = "Exit the Application", bool isExitRequried = true)
+        public static int OptionsGenerator(string[] options, string exitOption = "Exit the Application")
         {
             Console.WriteLine("Please choose the following ");
             int i = 1;
@@ -30,7 +30,21 @@ namespace TextToImageConverter
             }
             userInput = userInput >= 0 && userInput <= options.Length ? userInput : 0;
             return userInput;
-
         }
+        public static void PrintAll(IEnumerable<string> strings)
+        {
+            if (strings.Count() == 0)
+            {
+                Console.WriteLine("Empty List");
+            }
+            foreach (string str in strings)
+            {
+                Console.WriteLine(str);
+            }
+        }
+
+        
+
+
     }
 }
