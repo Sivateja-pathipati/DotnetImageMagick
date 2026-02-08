@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -42,6 +43,46 @@ namespace BasicApplications.Utilities
                 Console.WriteLine(str);
             }
         }
+
+        public static void PrintAllMethodsInTheApplication()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            IEnumerable<string?> namespaces = assembly.GetTypes()
+                                 .Where(t => t.IsClass)
+                                 .Select(t => t.Namespace)
+                                 .Distinct()
+                                 .OrderBy(ns => ns);
+
+            foreach (string ns in namespaces)
+            {
+                Console.WriteLine($"Namespace : {ns}");
+                assembly = Assembly.GetExecutingAssembly();
+                Type[] classes = assembly.GetTypes()
+                                        .Where(t => t.IsClass & t.Namespace == ns)
+                                        .OrderBy(t => t.Name)
+                                        .ToArray();
+                foreach (Type t in classes)
+                {
+                    Console.WriteLine($"    Class : {t.Name}");
+                    PrintAllMethodsOfClass(t);
+                }
+
+            }
+
+        }
+
+        public static void PrintAllMethodsOfClass(Type type)
+        {
+            MethodInfo[] methods = type.GetMethods();
+            string[] commonMethods = new string[] { "GetType", "Equals", "GetHashCode", "ToString" };
+            methods = methods.Where(t => !commonMethods.Contains(t.Name)).ToArray();
+            foreach (MethodInfo method in methods)
+            {
+                Console.WriteLine($"        --------> {method.Name} ");
+            }
+        }
+
+
 
         
 

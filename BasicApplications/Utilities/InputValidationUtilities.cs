@@ -36,6 +36,15 @@ namespace BasicApplications.Utilities
             return true;
         }
 
+        public static bool IsValidFileName(string fileName)
+        {
+            if (String.IsNullOrWhiteSpace(fileName)) { return false; }
+            if (fileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) { return false; }
+            if (fileName.Length >= 255) { return false; }
+            if (fileName.EndsWith(' ') || fileName.EndsWith(' ')) { return false; }
+            return true;
+        }
+
         public static bool IsValidOutputPath(string outputPath, HashSet<string> extensionTypes, out bool fileAlreadyExists)
         {
             

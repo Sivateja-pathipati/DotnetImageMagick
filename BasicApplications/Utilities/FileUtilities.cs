@@ -70,10 +70,26 @@ namespace BasicApplications.Utilities
             else
             {
                 directory = Path.GetDirectoryName(path) ?? String.Empty;
-                fileName = Path.GetFileNameWithoutExtension(path);
+                fileName = appendWord + Path.GetFileNameWithoutExtension(path);
             }
             string defaultFile = Path.Combine(directory, fileName + extension);
             return defaultFile;
+        }
+
+        public static string CreateDefaultDirectory(string path)
+        {
+            return Path.GetDirectoryName(path) ?? String.Empty;
+        }
+
+        public static long ReadImageSize(MagickImage image)
+        {
+            long fileSize;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                image.Write(ms);
+                fileSize = ms.Length;
+            }
+            return fileSize;
         }
     }
 }
