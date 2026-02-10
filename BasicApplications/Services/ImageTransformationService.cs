@@ -28,5 +28,12 @@ namespace BasicApplications.Services
 
             return img;
         }
+
+        public static  MagickImage RotateImage(MagickImage image, double angle)
+        {
+            MagickImage img = (MagickImage)image.Clone();
+            img.Rotate(angle);
+            return img;
+        }
     }
 }
