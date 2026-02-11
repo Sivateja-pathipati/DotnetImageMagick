@@ -35,5 +35,12 @@ namespace BasicApplications.Services
             img.Rotate(angle);
             return img;
         }
+
+        public static MagickImage CropImage(MagickImage image, double width, double height)
+        {
+            MagickImage img = (MagickImage)image.Clone();
+            img.Crop(new MagickGeometry((Percentage)width, (Percentage)height));
+            return img;
+        }
     }
 }
