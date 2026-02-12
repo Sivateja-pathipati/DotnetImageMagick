@@ -1,4 +1,5 @@
 ﻿using ImageMagick;
+using ImageMagick.Drawing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,18 @@ namespace BasicApplications.Services
         {
             MagickImage img = (MagickImage)image.Clone();
             img.Crop(new MagickGeometry((Percentage)width, (Percentage)height));
+            return img;
+        }
+
+        public static MagickImage AddWaterMark(MagickImage image, string watermark)
+        {
+            var img = (MagickImage)image.Clone();
+            var drawables = new Drawables()
+                .FontPointSize(36)
+                .FillColor(MagickColors.Orange)
+                .Text(20, 50, "© " + $"{watermark}");
+
+            drawables.Draw(img);
             return img;
         }
     }
