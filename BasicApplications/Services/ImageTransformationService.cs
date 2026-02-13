@@ -55,5 +55,13 @@ namespace BasicApplications.Services
             drawables.Draw(img);
             return img;
         }
+
+        public static MagickImage AddBorder(MagickImage image)
+        {
+            var img = (MagickImage)image.Clone();
+            img.BorderColor = MagickColors.Orange;
+            img.Border(10);
+            return img;
+        }
     }
 }
