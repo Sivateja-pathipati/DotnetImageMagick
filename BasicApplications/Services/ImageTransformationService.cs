@@ -63,5 +63,12 @@ namespace BasicApplications.Services
             img.Border(10);
             return img;
         }
+
+        public static MagickImage BlurImage(MagickImage image, double radius,double sigma)
+        {
+            var img = ( MagickImage)image.Clone();
+            img.GaussianBlur(radius,sigma);
+            return img;
+        }
     }
 }
